@@ -1,25 +1,17 @@
 const express = require('express');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Serve the frontend (public/index.html, style.css, app.js) at "/"
+app.use(express.static(path.join(__dirname, 'public')));
+
 // In-memory storage — resets every time the server restarts.
 let tasks = [];
 let nextId = 1;
-
-// Simple root route so hitting "/" doesn't 404
-app.get('/', (req, res) => {
-  res.json({
-    message: 'To-Do List API is running',
-    endpoints: {
-      'GET /tasks': 'List all tasks',
-      'POST /tasks': 'Add a new task (body: { "title": "string" })',
-      'PATCH /tasks/:id/done': 'Mark a task as done',
-    },
-  });
-});
 
 // 1. Add a task
 app.post('/tasks', (req, res) => {
