@@ -1,0 +1,20 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "A simple in-memory To-Do List API built with Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "todo",
+    "api",
+    "express",
+    "devops-internship"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.3"
+  }
+}
