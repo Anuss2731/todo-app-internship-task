@@ -689,3 +689,41 @@ PATCH  /tasks/:id/done
 ```
 
 The API can be tested directly using cURL commands or through the included frontend.
+
+# API Testing Commands
+
+The following `curl` commands can be used to test the API directly from the terminal.
+
+### 1. Create a Task
+
+```bash
+curl -X POST http://localhost:3000/tasks -H "Content-Type: application/json" -d '{"title":"Buy groceries"}'
+```
+
+### 2. Get All Tasks
+
+```bash
+curl http://localhost:3000/tasks
+```
+
+### 3. Mark Task as Done
+
+```bash
+curl -X PATCH http://localhost:3000/tasks/1/done
+```
+
+These `curl` commands are used for **API testing**. They allow the API endpoints to be tested directly from the command line without using the frontend.
+
+The same API endpoints can also be tested using tools such as Postman or Insomnia.
+
+---
+
+# Frontend
+
+The frontend is served by the same Express.js application.
+
+You can access the To-Do List frontend at:
+
+**http://localhost:3000**
+
+Open this URL in your browser after starting the application.
