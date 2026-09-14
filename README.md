@@ -859,3 +859,19 @@ The `runner` stage is the actual image that will run the application.
 This is called a:
 
 **Multi-stage Docker build**
+
+How to Run the Project
+
+Make sure Docker Desktop is running, then open PowerShell in the project directory.
+
+Step 1 — Build the image
+docker build -t todo-api .
+Step 2 — Run the container
+docker run -d -p 3000:3000 --name todo-api-container todo-api:latest
+Step 3 — Open the application
+
+Open this URL in your browser:
+
+http://localhost:3000
+
+That's it — the Todo API is now running inside a Docker container.
