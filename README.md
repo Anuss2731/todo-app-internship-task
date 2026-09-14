@@ -727,3 +727,135 @@ You can access the To-Do List frontend at:
 **http://localhost:3000**
 
 Open this URL in your browser after starting the application.
+
+
+
+
+# Node.js Docker Application
+
+This project is a Node.js application running inside a Docker container.
+
+The Dockerfile uses a **multi-stage build** to create a smaller and cleaner production image.
+
+---
+
+## Dockerfile
+
+```dockerfile
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm ci --omit=dev
+
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+RUN addgroup -S nodegrp && adduser -S nodeusr -G nodegrp
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY package.json ./
+
+COPY server.js ./
+
+COPY public ./public
+
+USER nodeusr
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+```
+
+---
+
+# Dockerfile Explanation
+
+## 1. Dependencies Stage
+
+```dockerfile
+FROM node:20-alpine AS deps
+```
+
+This starts the first stage using the **Node.js 20 Alpine Linux image**.
+
+`Alpine` is a lightweight Linux distribution, so the final Docker image can be smaller.
+
+`AS deps` gives this stage the name `deps`.
+
+---
+
+## 2. Set Working Directory
+
+```dockerfile
+WORKDIR /app
+```
+
+This creates and sets `/app` as the working directory inside the container.
+
+All following commands will work from:
+
+```text
+/app
+```
+
+---
+
+## 3. Copy Package Files
+
+```dockerfile
+COPY package.json package-lock.json ./
+```
+
+This copies:
+
+* `package.json`
+* `package-lock.json`
+
+from the local project into `/app` inside the container.
+
+These files contain the application's dependency information.
+
+---
+
+## 4. Install Production Dependencies
+
+```dockerfile
+RUN npm ci --omit=dev
+```
+
+This installs the dependencies required by the application.
+
+`npm ci` is mainly used for clean and reproducible installations.
+
+```text
+--omit=dev
+```
+
+means development dependencies are not installed.
+
+For example, packages such as testing or development tools will not be included in the production image.
+
+This helps keep the image smaller.
+
+---
+
+# Runner Stage
+
+```dockerfile
+FROM node:20-alpine AS runner
+```
+
+This starts a new stage.
+
+The first `deps` stage was mainly used to install dependencies.
+
+The `runner` stage is the actual image that will run the application.
+
+This is called a:
+
+**Multi-stage Docker build**
