@@ -103,14 +103,17 @@ todo-api/
 
 **What was the trickiest part of this for you?**
 
-_(Your answer here.)_
+The trickiest part was getting the application running correctly inside Docker and making sure the API was accessible through the expected port. I also had to understand how the Docker container, Node.js application, and port mapping work together. Setting up the GitHub Actions workflow was another useful challenge because I had to make sure the Docker image could be built automatically on every push.
 
 **Why did you make the choices you did?**
 
-_(Your answer here — e.g. why in-memory storage, why this project structure,
-why a plain HTML/JS frontend instead of a framework, why multi-stage Docker,
-etc.)_
+I used Node.js with Express because it is lightweight and well suited for building a simple REST API. I used in-memory storage because the task did not require a database, and it keeps the project simple and focused on the API and DevOps requirements.
+
+I used Docker so the application can run in a consistent environment without requiring Node.js to be installed directly on the host machine. I also used GitHub Actions to automatically build the Docker image whenever changes are pushed to the repository.
+
+For the project structure, I kept it simple because the application only has a few endpoints. I wanted the code to be easy to understand and maintain rather than adding unnecessary complexity.
 
 **If you had another day, what would you improve or do differently?**
+If I had another day, I would add automated API tests and include them in the GitHub Actions workflow before building the Docker image. I would also add a proper database such as PostgreSQL or MongoDB instead of in-memory storage.
 
-_(Your answer here.)_
+I would improve the CI/CD pipeline by adding Docker image tagging and pushing the image to GitHub Container Registry. I would also add better error handling, API validation, health checks, and possibly deploy the application to an Azure service.
