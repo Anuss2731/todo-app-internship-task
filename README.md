@@ -860,7 +860,7 @@ This is called a:
 
 **Multi-stage Docker build**
 
-How to Run the Project
+**How to Run the Project**
 
 Make sure Docker Desktop is running, then open PowerShell in the project directory.
 
